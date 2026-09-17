@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hassni Plumbers | Premium MEP & Plumbing Contractors</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        gold: '#D4AF37',       
+                        goldDark: '#AA8C2C',   
+                        goldLight: '#F3E5AB',  
+                        navy: '#1A365D',       
+                        navyDark: '#0F203C',   
+                        navyLight: '#2B4C7E',  
+                        offWhite: '#FAF9F6',   
+                        offWhiteDark: '#EAE8E3',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #FAF9F6; color: #1A365D; display: flex; flex-direction: column; min-height: 100vh; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; }
+        
+        /* SPA Page Transitions */
+        .page-section {
+            display: none;
+            opacity: 0;
+            animation: pageFadeIn 0.6s ease-out forwards;
+        }
+        .page-section.active {
+            display: block;
+        }
+        @keyframes pageFadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Reveal Animations for elements inside pages */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .reveal-left { opacity: 0; transform: translateX(-50px); transition: all 0.8s ease-out; }
+        .reveal-left.active { opacity: 1; transform: translateX(0); }
+
+        .reveal-right { opacity: 0; transform: translateX(50px); transition: all 0.8s ease-out; }
+        .reveal-right.active { opacity: 1; transform: translateX(0); }
+
+        /* Background Pattern */
+        .hero-pattern {
+            background-color: #0F203C;
+            background-image: 
+                linear-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 175, 55, 0.04) 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #FAF9F6; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; }
+        ::-webkit-scrollbar-thumb:hover { background: #AA8C2C; }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-offWhite/95 backdrop-blur-md shadow-sm border-b border-gold/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Logo -->
+                <a href="#home" class="flex-shrink-0 flex items-center gap-3 cursor-pointer">
+                    <div class="w-12 h-12 bg-navy text-gold rounded-sm flex items-center justify-center text-2xl border border-gold transition-transform hover:scale-105 duration-300">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-heading font-bold text-2xl text-navy tracking-tight leading-none">Hassni <span class="text-gold">Plumbers</span></span>
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-navyLight font-semibold mt-1">Mega Project Contractors</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-gold font-medium uppercase tracking-wider text-sm transition hover:text-goldDark">Home</a>
+                    <a href="#expertise" class="nav-link text-navy hover:text-gold font-medium uppercase tracking-wider text-sm transition">Experience</a>
+                    <a href="#projects" class="nav-link text-navy hover:text-gold font-medium uppercase tracking-wider text-sm transition">Projects</a>
+                    <a href="#company" class="nav-link text-navy hover:text-gold font-medium uppercase tracking-wider text-sm transition">Company</a>
+                    <a href="#contact" class="nav-link border-2 border-navy text-navy hover:bg-navy hover:text-gold px-6 py-2.5 font-bold uppercase tracking-wider text-sm transition duration-300">
+                        Discuss a Project
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-navy hover:text-gold focus:outline-none p-2 transition">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="md:hidden hidden bg-offWhite border-t border-offWhiteDark absolute w-full shadow-2xl transition-all duration-300">
+            <div class="px-4 pt-2 pb-6 space-y-1">
+                <a href="#home" class="mobile-link block px-3 py-3 text-base font-semibold text-navy hover:text-gold uppercase tracking-wider">Home</a>
+                <a href="#expertise" class="mobile-link block px-3 py-3 text-base font-semibold text-navy hover:text-gold uppercase tracking-wider">Experience</a>
+                <a href="#projects" class="mobile-link block px-3 py-3 text-base font-semibold text-navy hover:text-gold uppercase tracking-wider">Projects</a>
+                <a href="#company" class="mobile-link block px-3 py-3 text-base font-semibold text-navy hover:text-gold uppercase tracking-wider">Company</a>
+                <a href="#contact" class="mobile-link block px-3 py-3 text-base font-semibold text-navy hover:text-gold uppercase tracking-wider">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow pt-24">
+        
+        <!-- Home Page Section -->
+        <div id="page-home" class="page-section active">
+            <section class="relative py-20 lg:py-32 overflow-hidden hero-pattern border-b-8 border-gold min-h-[85vh] flex items-center">
+                <div class="absolute inset-0 bg-gradient-to-b from-navyDark/90 to-navyDark/70"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center w-full">
+                    <span class="inline-block py-1.5 px-4 bg-navy border border-gold text-gold font-semibold text-xs uppercase tracking-[0.2em] mb-6 reveal-left">
+                        <i class="fa-solid fa-star mr-2"></i> Premier Infrastructure Partners
+                    </span>
+                    <h1 class="text-4xl md:text-5xl lg:text-7xl font-heading font-bold text-white mb-6 leading-tight reveal">
+                        Engineering Plumbing <br/> 
+                        <span class="text-gold italic font-normal">for Hyderabad's Skyline</span>
+                    </h1>
+                    <p class="mt-6 max-w-3xl mx-auto text-lg text-gray-200 reveal font-light leading-relaxed" style="transition-delay: 200ms;">
+                        Hassni Plumbers is a leading MEP contracting firm specializing in large-scale Public Health Engineering (PHE), STP, and firefighting systems for luxury high-rises, IT parks, and commercial townships.
+                    </p>
+                    <div class="mt-12 flex flex-col sm:flex-row justify-center gap-6 reveal" style="transition-delay: 400ms;">
+                        <a href="#projects" class="bg-gold hover:bg-goldDark text-navy px-8 py-4 font-bold uppercase tracking-wider text-sm transition duration-300 shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:shadow-[0_0_30px_rgba(212,175,55,0.5)]">
+                            View Flagship Projects
+                        </a>
+                        <a href="#contact" class="bg-navy/50 backdrop-blur-sm border-2 border-gold text-gold hover:bg-gold hover:text-navy px-8 py-4 font-bold uppercase tracking-wider text-sm transition duration-300">
+                            Submit a Tender
+                        </a>
+                    </div>
+                    
+                    <!-- Stats Section -->
+                    <div class="mt-24 grid grid-cols-2 md:grid-cols-4 gap-6 pt-10 border-t border-gold/30 reveal bg-navyDark/40 p-6 rounded-sm backdrop-blur-md" style="transition-delay: 600ms;">
+                        <div class="text-center">
+                            <div class="text-4xl font-heading font-bold text-gold mb-2"><span class="counter" data-target="15">0</span>+</div>
+                            <div class="text-gray-300 text-xs uppercase tracking-widest font-semibold">Years in Business</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-heading font-bold text-gold mb-2"><span class="counter" data-target="50">0</span>+</div>
+                            <div class="text-gray-300 text-xs uppercase tracking-widest font-semibold">Mega Projects</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-heading font-bold text-gold mb-2"><span class="counter" data-target="10">0</span>M+</div>
+                            <div class="text-gray-300 text-xs uppercase tracking-widest font-semibold">Sq.Ft Executed</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-heading font-bold text-gold mb-2"><span class="counter" data-target="200">0</span>+</div>
+                            <div class="text-gray-300 text-xs uppercase tracking-widest font-semibold">Skilled Workforce</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-expertise" class="page-section bg-offWhite min-h-[85vh]">
+            <section class="py-20 lg:py-24">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                        <h2 class="text-gold font-bold tracking-[0.2em] uppercase text-xs mb-3">Our Work Experience</h2>
+                        <h3 class="text-3xl md:text-5xl font-heading font-bold text-navy">Large-Scale Contracting Solutions</h3>
+                        <div class="w-24 h-1 bg-gold mx-auto mt-6"></div>
+                        <p class="mt-6 text-gray-600 leading-relaxed">Dedicated to providing robust infrastructure solutions for Category A developers across Telangana.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <div class="group bg-white p-10 border border-offWhiteDark hover:border-gold transition-all duration-500 reveal hover:shadow-xl hover:-translate-y-2 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-gold/10 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                            <div class="w-14 h-14 bg-navyLight text-white rounded-sm flex items-center justify-center text-2xl mb-8 group-hover:bg-gold group-hover:text-navy transition-colors duration-300">
+                                <i class="fa-solid fa-city"></i>
+                            </div>
+                            <h4 class="text-xl font-heading font-bold text-navy mb-4">High-Rise PHE Systems</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">End-to-end Public Health Engineering (PHE) design and execution for skyscrapers, ensuring optimal water pressure and robust sanitary layouts across 40+ floors.</p>
+                        </div>
+
+                        <div class="group bg-white p-10 border border-offWhiteDark hover:border-gold transition-all duration-500 reveal hover:shadow-xl hover:-translate-y-2 relative overflow-hidden" style="transition-delay: 100ms;">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-gold/10 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                            <div class="w-14 h-14 bg-navyLight text-white rounded-sm flex items-center justify-center text-2xl mb-8 group-hover:bg-gold group-hover:text-navy transition-colors duration-300">
+                                <i class="fa-solid fa-water"></i>
+                            </div>
+                            <h4 class="text-xl font-heading font-bold text-navy mb-4">WTP & STP Infrastructure</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Turnkey installation of Water Treatment Plants and Sewage Treatment Plants for large gated communities and commercial complexes to meet environmental compliance.</p>
+                        </div>
+
+                        <div class="group bg-white p-10 border border-offWhiteDark hover:border-gold transition-all duration-500 reveal hover:shadow-xl hover:-translate-y-2 relative overflow-hidden" style="transition-delay: 200ms;">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-gold/10 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                            <div class="w-14 h-14 bg-navyLight text-white rounded-sm flex items-center justify-center text-2xl mb-8 group-hover:bg-gold group-hover:text-navy transition-colors duration-300">
+                                <i class="fa-solid fa-fire-extinguisher"></i>
+                            </div>
+                            <h4 class="text-xl font-heading font-bold text-navy mb-4">Fire Protection Systems</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Installation of commercial-grade fire hydrant networks, automated sprinkler systems, and pump rooms adhering to strict NBC and local fire safety norms.</p>
+                        </div>
+
+                        <div class="group bg-white p-10 border border-offWhiteDark hover:border-gold transition-all duration-500 reveal hover:shadow-xl hover:-translate-y-2 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-gold/10 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                            <div class="w-14 h-14 bg-navyLight text-white rounded-sm flex items-center justify-center text-2xl mb-8 group-hover:bg-gold group-hover:text-navy transition-colors duration-300">
+                                <i class="fa-solid fa-industry"></i>
+                            </div>
+                            <h4 class="text-xl font-heading font-bold text-navy mb-4">Industrial & HVAC Piping</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Chilled water piping, boiler networks, and specialized industrial fluid transportation systems for manufacturing units and large IT parks.</p>
+                        </div>
+
+                        <div class="group bg-white p-10 border border-offWhiteDark hover:border-gold transition-all duration-500 reveal hover:shadow-xl hover:-translate-y-2 relative overflow-hidden" style="transition-delay: 100ms;">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-gold/10 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                            <div class="w-14 h-14 bg-navyLight text-white rounded-sm flex items-center justify-center text-2xl mb-8 group-hover:bg-gold group-hover:text-navy transition-colors duration-300">
+                                <i class="fa-solid fa-faucet-drip"></i>
+                            </div>
+                            <h4 class="text-xl font-heading font-bold text-navy mb-4">Hydropneumatic Systems</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Design and commissioning of advanced multi-stage pumping systems with VFD controls for consistent water distribution in massive townships.</p>
+                        </div>
+
+                        <div class="group bg-white p-10 border border-offWhiteDark hover:border-gold transition-all duration-500 reveal hover:shadow-xl hover:-translate-y-2 relative overflow-hidden" style="transition-delay: 200ms;">
+                            <div class="absolute top-0 right-0 w-20 h-20 bg-gold/10 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                            <div class="w-14 h-14 bg-navyLight text-white rounded-sm flex items-center justify-center text-2xl mb-8 group-hover:bg-gold group-hover:text-navy transition-colors duration-300">
+                                <i class="fa-solid fa-cloud-showers-heavy"></i>
+                            </div>
+                            <h4 class="text-xl font-heading font-bold text-navy mb-4">Rainwater Harvesting</h4>
+                            <p class="text-gray-600 text-sm leading-relaxed">Implementation of massive underground retention basins and ground-water recharge structures to meet green building certifications (LEED/IGBC).</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-projects" class="page-section bg-navy text-white min-h-[85vh]">
+            <section class="py-20 lg:py-24 relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                        <div class="max-w-2xl">
+                            <h2 class="text-gold font-bold tracking-[0.2em] uppercase text-xs mb-3">Featured Portfolio</h2>
+                            <h3 class="text-3xl md:text-5xl font-heading font-bold text-white">Shaping Hyderabad's Elite Developments</h3>
+                            <div class="w-24 h-1 bg-gold mt-6 mb-4"></div>
+                        </div>
+                        <div class="mt-6 md:mt-0">
+                            <a href="#contact" class="text-gold font-bold uppercase tracking-widest text-sm hover:text-white transition flex items-center gap-2 border-b border-gold pb-1">
+                                Partner With Us <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div class="group relative overflow-hidden bg-navyDark border border-navyLight reveal shadow-lg hover:shadow-2xl transition-all duration-500">
+                            <div class="h-80 overflow-hidden relative">
+                                <img src="https://placehold.co/800x600/0F203C/D4AF37?text=Rajapushpa+Imperia+Project" alt="Rajapushpa Imperia" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 opacity-80 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-navyDark via-navyDark/50 to-transparent"></div>
+                                <div class="absolute top-4 right-4 bg-gold text-navy text-xs font-bold px-3 py-1 uppercase tracking-widest">
+                                    Flagship Project
+                                </div>
+                            </div>
+                            <div class="p-8 relative">
+                                <span class="text-gold text-xs font-bold tracking-widest uppercase mb-2 block">Premium Residential High-Rise</span>
+                                <h4 class="text-2xl font-heading font-bold mb-4 text-white">Rajapushpa Imperia</h4>
+                                <p class="text-gray-300 text-sm mb-6 leading-relaxed">Executed complete sanitary installations, high-pressure water supply networks, and comprehensive STP infrastructure for this massive luxury township in Tellapur comprising multiple 40-story towers.</p>
+                                <div class="flex items-center gap-2 text-xs text-gold uppercase tracking-widest font-semibold border-t border-navyLight pt-4">
+                                    <i class="fa-solid fa-location-dot"></i> Tellapur, Hyderabad
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group relative overflow-hidden bg-navyDark border border-navyLight reveal shadow-lg hover:shadow-2xl transition-all duration-500" style="transition-delay: 150ms;">
+                            <div class="h-80 overflow-hidden relative">
+                                <img src="https://placehold.co/800x600/0F203C/D4AF37?text=Corporate+IT+Hub" alt="IT Park Project" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 opacity-80 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-navyDark via-navyDark/50 to-transparent"></div>
+                            </div>
+                            <div class="p-8 relative">
+                                <span class="text-gold text-xs font-bold tracking-widest uppercase mb-2 block">Commercial Tech Park</span>
+                                <h4 class="text-2xl font-heading font-bold mb-4 text-white">Financial District IT Hub</h4>
+                                <p class="text-gray-300 text-sm mb-6 leading-relaxed">Contracted for massive HVAC chilled water piping arrays, automated fire suppression networks, and intelligent water management systems for a 2-million sq.ft commercial workspace.</p>
+                                <div class="flex items-center gap-2 text-xs text-gold uppercase tracking-widest font-semibold border-t border-navyLight pt-4">
+                                    <i class="fa-solid fa-location-dot"></i> Nanakramguda, Hyderabad
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="group relative overflow-hidden bg-navyDark border border-navyLight reveal shadow-lg hover:shadow-2xl transition-all duration-500" style="transition-delay: 300ms;">
+                            <div class="h-80 overflow-hidden relative">
+                                <img src="https://placehold.co/800x600/0F203C/D4AF37?text=Ultra-Luxury+Villas" alt="Luxury Villas" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700 opacity-80 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-navyDark via-navyDark/50 to-transparent"></div>
+                            </div>
+                            <div class="p-8 relative">
+                                <span class="text-gold text-xs font-bold tracking-widest uppercase mb-2 block">Gated Community</span>
+                                <h4 class="text-2xl font-heading font-bold mb-4 text-white">Elite Villas Enclave</h4>
+                                <p class="text-gray-300 text-sm mb-6 leading-relaxed">Delivered imported high-end fixture installations, advanced hydro-pneumatic systems, and dedicated hot water return lines for 150+ ultra-luxury sprawling villas.</p>
+                                <div class="flex items-center gap-2 text-xs text-gold uppercase tracking-widest font-semibold border-t border-navyLight pt-4">
+                                    <i class="fa-solid fa-location-dot"></i> Mokila, Hyderabad
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-company" class="page-section bg-white min-h-[85vh]">
+            <section class="py-20 lg:py-24 relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col lg:flex-row gap-16 items-center">
+                        <div class="w-full lg:w-1/2 reveal-left">
+                            <h2 class="text-gold font-bold tracking-[0.2em] uppercase text-xs mb-3">Corporate Profile</h2>
+                            <h3 class="text-3xl md:text-4xl font-heading font-bold text-navy mb-6">The Trusted Partner for Top-Tier Developers</h3>
+                            <div class="w-20 h-1 bg-gold mb-6"></div>
+                            <p class="text-gray-600 mb-6 text-base leading-relaxed">
+                                For over 15 years, Hassni Plumbers has evolved to become a formidable MEP contractor trusted by Hyderabad's most prestigious builders. We specialize exclusively in large-scale commercial, industrial, and high-rise residential infrastructure.
+                            </p>
+                            <p class="text-gray-600 mb-10 text-base leading-relaxed">
+                                We don't just lay pipes; we engineer the critical circulatory systems of mega-structures. Our adherence to stringent quality control, ability to manage massive workforces, and commitment to project timelines make us the preferred choice.
+                            </p>
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="bg-offWhite p-5 border border-offWhiteDark border-l-4 border-l-gold">
+                                    <h5 class="font-bold text-navy text-lg mb-1">Scale & Capacity</h5>
+                                    <p class="text-sm text-gray-500">Capable of deploying 200+ skilled tradesmen for rapid execution.</p>
+                                </div>
+                                <div class="bg-offWhite p-5 border border-offWhiteDark border-l-4 border-l-gold">
+                                    <h5 class="font-bold text-navy text-lg mb-1">Compliance</h5>
+                                    <p class="text-sm text-gray-500">Strict adherence to GHMC, NBC, and International Plumbing Codes.</p>
+                                </div>
+                                <div class="bg-offWhite p-5 border border-offWhiteDark border-l-4 border-l-gold">
+                                    <h5 class="font-bold text-navy text-lg mb-1">Procurement</h5>
+                                    <p class="text-sm text-gray-500">Direct tie-ups with premium material manufacturers ensuring quality.</p>
+                                </div>
+                                <div class="bg-offWhite p-5 border border-offWhiteDark border-l-4 border-l-gold">
+                                    <h5 class="font-bold text-navy text-lg mb-1">Project Mgmt</h5>
+                                    <p class="text-sm text-gray-500">Dedicated engineers utilizing modern ERP for seamless tracking.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="w-full lg:w-1/2 reveal-right">
+                            <div class="bg-navy p-10 lg:p-14 relative shadow-2xl rounded-sm">
+                                <div class="absolute inset-4 border border-gold/30 pointer-events-none rounded-sm"></div>
+                                <div class="absolute -top-5 -right-2 text-7xl text-gold opacity-20">
+                                    <i class="fa-solid fa-quote-right"></i>
+                                </div>
+                                
+                                <h4 class="text-xl font-heading font-bold text-white mb-10 border-b border-navyLight pb-4 uppercase tracking-widest text-sm">Developer Testimonials</h4>
+                                
+                                <div id="testimonial-container" class="relative h-56 md:h-48 overflow-hidden">
+                                    <!-- JS injected testimonials -->
+                                </div>
+
+                                <div class="flex gap-3 mt-8 relative z-10">
+                                    <button id="prev-test" class="w-12 h-12 bg-navyDark text-white border border-navyLight flex items-center justify-center hover:bg-gold hover:text-navy hover:border-gold transition duration-300"><i class="fa-solid fa-arrow-left"></i></button>
+                                    <button id="next-test" class="w-12 h-12 bg-navyDark text-white border border-navyLight flex items-center justify-center hover:bg-gold hover:text-navy hover:border-gold transition duration-300"><i class="fa-solid fa-arrow-right"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div id="page-contact" class="page-section bg-offWhite min-h-[85vh]">
+            <section class="py-20 lg:py-24 relative">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                        <h2 class="text-gold font-bold tracking-[0.2em] uppercase text-xs mb-3">Initiate A Discussion</h2>
+                        <h3 class="text-3xl md:text-5xl font-heading font-bold text-navy mb-4">Request a Consultation</h3>
+                        <div class="w-24 h-1 bg-gold mx-auto mt-6 mb-6"></div>
+                        <p class="text-gray-600">For tender submissions, commercial project consultations, and contractor partnerships.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-5 gap-0 bg-white shadow-2xl reveal border border-offWhiteDark rounded-sm overflow-hidden">
+                        
+                        <div class="lg:col-span-2 bg-navy p-10 lg:p-12 relative overflow-hidden">
+                            <div class="absolute -bottom-20 -right-20 text-[15rem] text-navyLight opacity-30 pointer-events-none">
+                                <i class="fa-solid fa-helmet-safety"></i>
+                            </div>
+                            
+                            <h4 class="text-2xl font-heading font-bold mb-8 relative z-10 text-white">Corporate Office</h4>
+                            
+                            <div class="space-y-8 relative z-10">
+                                <div class="flex items-start gap-5">
+                                    <div class="w-12 h-12 bg-navyDark flex items-center justify-center text-gold flex-shrink-0 border border-gold/30 rounded-sm">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-bold text-sm uppercase tracking-widest text-gold mb-1">Headquarters</h5>
+                                        <p class="text-gray-300 text-sm leading-relaxed">Hassni House, Plot No 42, Financial District,<br> Gachibowli, Hyderabad, Telangana 500032</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-start gap-5">
+                                    <div class="w-12 h-12 bg-navyDark flex items-center justify-center text-gold flex-shrink-0 border border-gold/30 rounded-sm">
+                                        <i class="fa-solid fa-phone"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-bold text-sm uppercase tracking-widest text-gold mb-1">Phone / Desk</h5>
+                                        <p class="text-gray-300 text-sm mb-1">+91 98765 43210 (Tenders)</p>
+                                        <p class="text-gray-300 text-sm">+91 40 2345 6789 (Board Line)</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start gap-5">
+                                    <div class="w-12 h-12 bg-navyDark flex items-center justify-center text-gold flex-shrink-0 border border-gold/30 rounded-sm">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-bold text-sm uppercase tracking-widest text-gold mb-1">Email</h5>
+                                        <p class="text-gray-300 text-sm mb-1">tenders@hassniplumbers.com</p>
+                                        <p class="text-gray-300 text-sm">projects@hassniplumbers.com</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="lg:col-span-3 p-10 lg:p-12 bg-white">
+                            <form id="contactForm" class="space-y-6" onsubmit="handleFormSubmit(event)">
+                                <!-- Replace YOUR_ACCESS_KEY_HERE with your actual Web3Forms key -->
+                                <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                                <input type="hidden" name="subject" value="New Project Inquiry - Hassni Plumbers">
+                                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+                                
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Company / Developer Name</label>
+                                        <input type="text" name="company_name" required class="w-full bg-offWhite border border-offWhiteDark px-4 py-3 text-navy focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition rounded-sm">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Contact Person</label>
+                                        <input type="text" name="contact_person" required class="w-full bg-offWhite border border-offWhiteDark px-4 py-3 text-navy focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition rounded-sm">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Phone Number</label>
+                                        <input type="tel" name="phone_number" required class="w-full bg-offWhite border border-offWhiteDark px-4 py-3 text-navy focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition rounded-sm">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Project Scale</label>
+                                        <select name="project_scale" class="w-full bg-offWhite border border-offWhiteDark px-4 py-3 text-navy focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition rounded-sm appearance-none">
+                                            <option value="High-Rise Residential">High-Rise Residential</option>
+                                            <option value="Commercial IT Park">Commercial IT Park</option>
+                                            <option value="Industrial Facility">Industrial Facility</option>
+                                            <option value="Luxury Township">Luxury Township</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Project Details / Requirements</label>
+                                    <textarea name="project_details" rows="4" required class="w-full bg-offWhite border border-offWhiteDark px-4 py-3 text-navy focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold transition rounded-sm placeholder-gray-400" placeholder="Please provide brief details about the project scope, location, and timelines..."></textarea>
+                                </div>
+                                <button type="submit" class="w-full bg-navy hover:bg-gold hover:text-navy text-white font-bold uppercase tracking-widest py-4 transition duration-500 rounded-sm shadow-md">
+                                    Submit Inquiry
+                                </button>
+                                
+                                <div id="formStatus" class="hidden p-4 mt-4 text-center text-sm font-semibold rounded-sm">
+                                    <!-- Dynamic status message will appear here -->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer class="bg-navyDark border-t border-navyLight py-10 mt-auto text-center md:text-left">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-building text-gold text-xl"></i>
+                <span class="font-heading font-bold text-xl text-white tracking-tight">Hassni<span class="text-gold">Plumbers</span></span>
+            </div>
+            <p class="text-gray-400 text-sm font-medium">
+                &copy; <script>document.write(new Date().getFullYear())</script> Hassni Plumbers Mega Projects Division, Hyderabad. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // --- 1. SPA Routing Logic ---
+        function navigateTo(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(el => {
+                el.classList.remove('active');
+            });
+            
+            // Show target page
+            const target = document.getElementById('page-' + pageId);
+            if (target) {
+                target.classList.add('active');
+                window.scrollTo(0,0);
+                
+                // Re-initialize animations for the newly visible page
+                resetReveals();
+                initObserver();
+                
+                // Trigger counters if home page
+                if(pageId === 'home') {
+                    setTimeout(animateCounters, 300);
+                }
+            } else {
+                // Fallback to home if invalid hash
+                document.getElementById('page-home').classList.add('active');
+            }
+            
+            // Update active nav state (Desktop)
+            document.querySelectorAll('.nav-link').forEach(link => {
+                // Ignore the button link
+                if(link.classList.contains('border-2')) return;
+                
+                if(link.getAttribute('href') === '#' + pageId) {
+                    link.classList.add('text-gold');
+                    link.classList.remove('text-navy');
+                } else {
+                    link.classList.remove('text-gold');
+                    link.classList.add('text-navy');
+                }
+            });
+
+            // Close mobile menu if open
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+
+        // Listen for URL hash changes
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.replace('#', '') || 'home';
+            navigateTo(hash);
+        });
+
+        // --- 2. Mobile Menu Toggle ---
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // --- 3. Scroll Reveal Animation Logic ---
+        function resetReveals() {
+            document.querySelectorAll(".reveal, .reveal-left, .reveal-right").forEach(el => {
+                el.classList.remove("active");
+            });
+        }
+
+        function initObserver() {
+            const reveals = document.querySelectorAll(".page-section.active .reveal, .page-section.active .reveal-left, .page-section.active .reveal-right");
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("active");
+                        observer.unobserve(entry.target); // Stop observing once revealed
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            reveals.forEach((element) => {
+                observer.observe(element);
+            });
+        }
+
+        // --- 4. Counter Animation ---
+        const animateCounters = () => {
+            const counters = document.querySelectorAll('.page-section.active .counter');
+            const speed = 100; // The lower the slower
+
+            counters.forEach(counter => {
+                // Reset counter for re-animation
+                counter.innerText = '0';
+                
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 20);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            });
+        };
+
+        // --- 5. Dynamic Testimonials Slider ---
+        const testimonials = [
+            {
+                text: "Hassni Plumbers executed the complex PHE and STP systems for our massive Tellapur project flawlessly. Their ability to deploy large teams and maintain strict timelines is commendable.",
+                author: "Procurement Head",
+                company: "Rajapushpa Properties"
+            },
+            {
+                text: "A highly professional contracting firm. Their engineering team provided brilliant value-engineering for our IT Park's chilled water piping, saving us significant costs without compromising quality.",
+                author: "Chief Project Engineer",
+                company: "Leading IT Infrastructure Developer"
+            },
+            {
+                text: "We have partnered with Hassni for over a decade. Their commitment to safety standards and international plumbing codes makes them our go-to contractor for premium high-rises.",
+                author: "Managing Director",
+                company: "Premium Luxury Builders, Hyderabad"
+            }
+        ];
+
+        let currentTestimonial = 0;
+        
+        function renderTestimonial(index) {
+            const container = document.getElementById('testimonial-container');
+            if(!container) return;
+            
+            container.style.opacity = 0;
+            setTimeout(() => {
+                const t = testimonials[index];
+                container.innerHTML = `
+                    <div class="absolute inset-0 flex flex-col justify-center transition-opacity duration-500">
+                        <p class="text-gray-300 italic mb-6 text-base leading-relaxed">"${t.text}"</p>
+                        <div>
+                            <h6 class="font-bold text-gold">${t.author}</h6>
+                            <p class="text-xs uppercase tracking-widest text-gray-400 mt-1">${t.company}</p>
+                        </div>
+                    </div>
+                `;
+                container.style.opacity = 1;
+            }, 300);
+        }
+
+        if(document.getElementById('prev-test')) {
+            document.getElementById('prev-test').addEventListener('click', () => {
+                currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+                renderTestimonial(currentTestimonial);
+            });
+
+            document.getElementById('next-test').addEventListener('click', () => {
+                currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+                renderTestimonial(currentTestimonial);
+            });
+
+            setInterval(() => {
+                // Only animate if company page is active
+                if(document.getElementById('page-company').classList.contains('active')) {
+                    currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+                    renderTestimonial(currentTestimonial);
+                }
+            }, 7000);
+        }
+
+        // --- 6. Form Submission Handler ---
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = document.getElementById('contactForm');
+            const statusDiv = document.getElementById('formStatus');
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing...';
+            submitBtn.disabled = true;
+            statusDiv.classList.add('hidden');
+            
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                });
+                
+                const result = await response.json();
+                
+                if (response.status == 200) {
+                    // Success
+                    statusDiv.innerHTML = "Inquiry sent successfully! Our projects team will contact you shortly.";
+                    statusDiv.className = "p-4 mt-4 border border-green-500 bg-green-50 text-green-700 text-center text-sm font-semibold rounded-sm";
+                    form.reset();
+                } else {
+                    // API returned an error
+                    console.log(response);
+                    statusDiv.innerHTML = result.message || "Something went wrong. Please check your access key.";
+                    statusDiv.className = "p-4 mt-4 border border-red-500 bg-red-50 text-red-700 text-center text-sm font-semibold rounded-sm";
+                }
+            } catch (error) {
+                // Network or other fetch error
+                console.log(error);
+                statusDiv.innerHTML = "Network error! Please check your connection and try again.";
+                statusDiv.className = "p-4 mt-4 border border-red-500 bg-red-50 text-red-700 text-center text-sm font-semibold rounded-sm";
+            } finally {
+                // Always restore the button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                statusDiv.classList.remove('hidden');
+                
+                // Hide the message after a few seconds
+                setTimeout(() => { 
+                    statusDiv.classList.add('hidden'); 
+                    statusDiv.className = "hidden p-4 mt-4 text-center text-sm font-semibold rounded-sm"; // reset classes
+                }, 6000);
+            }
+        }
+
+        // --- 7. Initialization on Page Load ---
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.replace('#', '') || 'home';
+            navigateTo(hash);
+            renderTestimonial(0);
+        });
+
+    </script>
+</body>
+</html>

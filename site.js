@@ -15,7 +15,8 @@ const syncHeader=()=>siteHeader.classList.toggle("scrolled",window.scrollY>32);
 syncHeader();
 window.addEventListener("scroll",syncHeader,{passive:true});
 const heroVideo=document.querySelector(".hero-video");
-if(heroVideo && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+if(heroVideo){
+  heroVideo.style.display="block";
   heroVideo.muted=true;
   heroVideo.defaultMuted=true;
   const resumeHeroVideo=()=>{

@@ -18,6 +18,12 @@ const heroVideo=document.querySelector(".hero-video");
 if(heroVideo && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
   heroVideo.muted=true;
   heroVideo.defaultMuted=true;
-  heroVideo.addEventListener("loadeddata",()=>heroVideo.play().catch(()=>{}),{once:true});
-  heroVideo.play().catch(()=>{});
+  const resumeHeroVideo=()=>{
+    if(heroVideo.paused) heroVideo.play().catch(()=>{});
+  };
+  heroVideo.addEventListener("loadeddata",resumeHeroVideo,{once:true});
+  window.addEventListener("pageshow",resumeHeroVideo);
+  document.addEventListener("visibilitychange",resumeHeroVideo);
+  document.addEventListener("pointerdown",resumeHeroVideo,{once:true,passive:true});
+  resumeHeroVideo();
 }

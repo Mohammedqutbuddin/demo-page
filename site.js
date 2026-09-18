@@ -15,25 +15,9 @@ const syncHeader=()=>siteHeader.classList.toggle("scrolled",window.scrollY>32);
 syncHeader();
 window.addEventListener("scroll",syncHeader,{passive:true});
 const heroVideo=document.querySelector(".hero-video");
-const heroVideoPlay=document.querySelector(".hero-video-play");
 if(heroVideo && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
   heroVideo.muted=true;
   heroVideo.defaultMuted=true;
-  const startHeroVideo=()=>{
-    heroVideo.play().then(()=>{
-      if(heroVideoPlay) heroVideoPlay.textContent="Pause building video";
-    }).catch(()=>{
-      if(heroVideoPlay) heroVideoPlay.textContent="Play building video";
-    });
-  };
-  heroVideo.addEventListener("canplay",startHeroVideo,{once:true});
-  if(heroVideo.readyState>=3) startHeroVideo();
-  if(heroVideoPlay) heroVideoPlay.addEventListener("click",()=>{
-    if(heroVideo.paused){
-      startHeroVideo();
-    }else{
-      heroVideo.pause();
-      heroVideoPlay.textContent="Play building video";
-    }
-  });
+  heroVideo.addEventListener("loadeddata",()=>heroVideo.play().catch(()=>{}),{once:true});
+  heroVideo.play().catch(()=>{});
 }

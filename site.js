@@ -21,12 +21,19 @@ if(heroVideo && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
   heroVideo.defaultMuted=true;
   const startHeroVideo=()=>{
     heroVideo.play().then(()=>{
-      if(heroVideoPlay) heroVideoPlay.hidden=true;
+      if(heroVideoPlay) heroVideoPlay.textContent="Pause building video";
     }).catch(()=>{
-      if(heroVideoPlay) heroVideoPlay.hidden=false;
+      if(heroVideoPlay) heroVideoPlay.textContent="Play building video";
     });
   };
   heroVideo.addEventListener("canplay",startHeroVideo,{once:true});
   if(heroVideo.readyState>=3) startHeroVideo();
-  if(heroVideoPlay) heroVideoPlay.addEventListener("click",startHeroVideo);
+  if(heroVideoPlay) heroVideoPlay.addEventListener("click",()=>{
+    if(heroVideo.paused){
+      startHeroVideo();
+    }else{
+      heroVideo.pause();
+      heroVideoPlay.textContent="Play building video";
+    }
+  });
 }

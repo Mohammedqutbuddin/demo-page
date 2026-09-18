@@ -15,6 +15,18 @@ const syncHeader=()=>siteHeader.classList.toggle("scrolled",window.scrollY>32);
 syncHeader();
 window.addEventListener("scroll",syncHeader,{passive:true});
 const heroVideo=document.querySelector(".hero-video");
+const heroVideoPlay=document.querySelector(".hero-video-play");
 if(heroVideo && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
-  heroVideo.play().catch(()=>{});
+  heroVideo.muted=true;
+  heroVideo.defaultMuted=true;
+  const startHeroVideo=()=>{
+    heroVideo.play().then(()=>{
+      if(heroVideoPlay) heroVideoPlay.hidden=true;
+    }).catch(()=>{
+      if(heroVideoPlay) heroVideoPlay.hidden=false;
+    });
+  };
+  heroVideo.addEventListener("canplay",startHeroVideo,{once:true});
+  if(heroVideo.readyState>=3) startHeroVideo();
+  if(heroVideoPlay) heroVideoPlay.addEventListener("click",startHeroVideo);
 }

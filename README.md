@@ -1,6 +1,6 @@
 # Hassni Plumbers — Company Website
 
-A static marketing website for **Hassni Plumbers (Hassni Group)**, an Hyderabad-based engineering and contracting company founded in 1991, offering plumbing, fire protection, electrical, HVAC and turnkey MEP services across India.
+A static marketing website for **Hassni Plumbers (Hassni Group)**, a Hyderabad-based engineering and contracting company founded in 1991, offering plumbing, fire protection, electrical, HVAC and turnkey MEP services across India.
 
 **Live site:** [demo-page-flax.vercel.app](https://demo-page-flax.vercel.app)
 
@@ -52,7 +52,10 @@ Clone the repo and open `index.html` in a browser.
 ```bash
 git clone https://github.com/Mohammedqutbuddin/demo-page.git
 cd demo-page
-open index.html   # or just double-click the file
+open index.html   # macOS
+# or
+xdg-open index.html   # Linux
+# or just double-click the file
 ```
 
 **Option 2 — run a local server (recommended)**
